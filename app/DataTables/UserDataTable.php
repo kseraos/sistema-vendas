@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\User;
+use PhpOffice\PhpSpreadsheet\Chart\Title;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -23,6 +24,7 @@ class UserDataTable extends DataTable
             ->eloquent($query)
             ->addColumn('action', function($user){
                 $acoes = link_to_route('users.edit', 'Editar', $user, ['class'=> 'btn btn-primary btn-sm']);
+                $acoes .= link_to_route('users.show', 'Excluir', $user, ['class'=> 'btn btn-danger btn-sm ml-1']);
                 return $acoes;
 
             });
@@ -70,8 +72,8 @@ class UserDataTable extends DataTable
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
+                  ->width(120)
+                  ->title('Ações'),
             Column::make('id'),
             Column::make('name'),
             Column::make('email'),
