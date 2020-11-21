@@ -8,7 +8,13 @@
 
 @section('content')
 <div class="card card-primary">
+  @if (isset($user))
+    {!! Form::model($user, ['route' => ['users.update', $user], 'method' => 'put']) !!}
+  @else 
   {!!Form::open(['route' => 'users.store'])!!}
+  @endif
+      
+ 
       <div class="card-body">
         <div class="form-group">
             {!! Form::label('name', 'Nome')!!}
