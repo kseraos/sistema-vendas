@@ -68,6 +68,35 @@
     @stack('js')
     @yield('js')
 
+    <script>
+        function excluir(rota){
+            Swal.fire({
+                title: 'Atenção',
+                text: "Deseja mesmo excluir",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sim',
+                cancelButtonText:'Não'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                        axios.delete(rota)
+                            .then((data) => {
+                                $('#' + Object.keys(window.LaravelDataTables)[0]).DataTable().ajax.reload()
+                                Swal.fire('Perfeito!', 'Excluido com sucesso', 'success')
+                    })
+                            .catch((err) => {
+                                Swal.fire('Ops!', 'Erro ao excluir', 'error')
+                    })
+                        
+                        
+                }
+            })
+            
+        }
+    </script>
+    
     @if(Session::has('sucesso')||Session::has('erro'))
     <script>
         Swal.fire({

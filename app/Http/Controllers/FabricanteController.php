@@ -25,12 +25,6 @@ class FabricanteController extends Controller
         return view('fabricantes.form');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //User::create($request->all());
@@ -81,22 +75,10 @@ class FabricanteController extends Controller
                 ->withErro('Ocorreu um erro ao atualizar');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Fabricante $fabricante)
     {
-        $fabricante = FabricanteService::destroy($fabricante);
+        $exclusao = FabricanteService::destroy($fabricante);
 
-        if($fabricante){
-            return redirect()->route('users.index')
-                ->withSucesso('Excluído com sucesso');
-        }
-            return redirect()->route('users.show', $fabricante)
-                ->withErro('Ocorreu um erro ao excluir');
+        return response($exclusao, $exclusao ? 200 : 400);
     }
-  
 }
