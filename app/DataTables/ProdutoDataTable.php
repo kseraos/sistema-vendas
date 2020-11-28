@@ -36,9 +36,16 @@ class ProdutoDataTable extends DataTable
      * @param \App\Models\Produto $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Produto $model)
+    public function query(Produto $produto)
     {
-        return $model->newQuery();
+        return $produto->join('fabricantes', 'fabricantes.id','produtos.fabricante_id' )
+                ->select(
+                    'produtos.id',
+                    'produtos.descricao',
+                    'produtos.estoque',
+                    'produtos.preco',
+                    'fabricantes.nome as fabricante'
+                );
     }
 
     /**
@@ -77,6 +84,7 @@ class ProdutoDataTable extends DataTable
             Column::make('descricao'),
             Column::make('estoque'),
             Column::make('preco'),
+            Column::make('fabricante')->name('fabricantes.nome')
         ];
     }
 
