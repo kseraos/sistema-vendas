@@ -36,4 +36,18 @@ class FabricanteService
             
         }  
     }
+    public static function fabricanteSelect($request)
+    {
+        if(isset ($request['pesquisa'])){
+            return Fabricante::select('id', 'nome as text')
+                ->where('nome', 'like', "%" . $request['pesquisa'] . "%")
+                ->limit(10)
+                ->get();
+
+        }
+        return Fabricante::select('id', 'nome as text')
+                ->limit(10)
+                ->get();
+
+    }
 }

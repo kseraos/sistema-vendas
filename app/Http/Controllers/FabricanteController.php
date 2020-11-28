@@ -81,4 +81,8 @@ class FabricanteController extends Controller
 
         return response($exclusao, $exclusao ? 200 : 400);
     }
+    public function fabricanteSelect(Request $request)
+    {
+        return FabricanteService::fabricanteSelect($request->all());
+    }
 }
