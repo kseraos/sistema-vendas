@@ -36,4 +36,18 @@ class ProdutoService {
             
         }  
     }
+    public static function produtoSelect($request)
+    {
+        if(isset ($request['pesquisa'])){
+            return Produto::select('id', 'descricao as text')
+                ->where('descricao', 'like', "%" . $request['pesquisa'] . "%")
+                ->limit(10)
+                ->get();
+
+        }
+        return Produto::select('id', 'descricao as text')
+                ->limit(10)
+                ->get();
+
+    }
 }

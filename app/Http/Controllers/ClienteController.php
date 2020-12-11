@@ -80,7 +80,7 @@ class ClienteController extends Controller
 
         return response($exclusao, $exclusao ? 200 : 400);
     }
-    public function ClienteSelect(Request $request)
+    public function clientesSelect(Request $request)
     {
         return ClienteService::clienteSelect($request->all());
     }
