@@ -1,15 +1,15 @@
 <?php
-
 namespace App\Services;
 
-use App\Models\Produto;
+use App\Model\Cliente;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
-class ProdutoService {
+class ClienteService 
+{
     public static function store($request){
         try{
-            return Produto::create($request);
+            return Cliente::create($request);
         } catch (Throwable $th){
             Log::error($th->getMessage());
             return null;
@@ -26,26 +26,26 @@ class ProdutoService {
             
         }  
     }
-    public static function destroy($produto)
+    public static function destroy($Cliente)
     {
         try{
-            return $produto->delete();
+            return $Cliente->delete();
         } catch (Throwable $th){
             Log::error($th->getMessage());
             return null;
             
         }  
     }
-    public static function produtoSelect($request)
+    public static function ClienteSelect($request)
     {
         if(isset ($request['pesquisa'])){
-            return Produto::select('id', 'descricao as text')
-                ->where('descricao', 'like', "%" . $request['pesquisa'] . "%")
+            return Cliente::select('id', 'nome as text')
+                ->where('nome', 'like', "%" . $request['pesquisa'] . "%")
                 ->limit(10)
                 ->get();
 
         }
-        return Produto::select('id', 'descricao as text')
+        return Cliente::select('id', 'nome as text')
                 ->limit(10)
                 ->get();
 
