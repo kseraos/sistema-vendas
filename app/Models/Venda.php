@@ -22,4 +22,14 @@ class Venda extends Model
         self::DINHEIRO => 'Dinheiro',
         self::CARTAO => 'Cartão'
     ];
+    public function itensVenda()
+    {
+        return $this->hasMany(ItemVenda::class);
+    }
+
+    public function cliente()
+    {
+        return $this->belongsTo(Cliente::class);
+    }
+    
 }

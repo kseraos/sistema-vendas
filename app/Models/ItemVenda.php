@@ -16,4 +16,14 @@ class ItemVenda extends Model
 
 
     ];
+    
+    public function venda()
+    {
+        return $this->belongsTo(Venda::class);
+    }
+
+    public function produto()
+    {
+        return $this->belongsTo(Produto::class);
+    }
 }

@@ -28,7 +28,7 @@
 
         <div class="form-group">
             {!! Form::label('forma_pagamento', 'Forma de Pagamento') !!}
-            {!! Form::select('forma_pagamento', $formasPagamento, null, ['class' => 'form-control']) !!}
+            {!! Form::select('forma_pagamento', $formasPagamento, null, ['class' => 'form-control', 'onchange' => 'atualizaPrecos()']) !!}
             @error('forma_pagamento')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -63,7 +63,7 @@
             </div>
             <div class="col-md-2">
                 <label>Ação</label>
-                <button class="btn btn-success btn-block" onclick="adicionarItem()">Adicionar Produto</button>
+                <button type="button" class="btn btn-success btn-block" onclick="adicionarItem()">Adicionar Produto</button>
             </div>
         </div>
 
@@ -123,8 +123,19 @@
               }
           }
       })
-      $('#formVenda').submit(function (e) {
-          e.preventDefault()
+        $('#formVenda').submit(function (e) {
+            e.preventDefault()
+            if (totalGeral == 0) {
+                Swal.fire('Ops!', 'A venda precisa ter pelo menos um produto', 'error')
+                return false
+            }
+            axios.post('{{ route('vendas.store') }}', new FormData(e.target))
+                .then((res) => {
+                    window.location.href = '{{ route('vendas.index') }}'
+                })
+                .catch((err) => {
+                    Swal.fire('Ops!', 'Ocorreu um erro ao salvar a venda', 'error')
+                })
       })
       var itensVenda = []
       function adicionarItem () {
@@ -151,6 +162,7 @@
       }
       var totalGeral = 0
       function atualizarTabela () {
+        totalGeral = 0
         $('#tabelaItensVenda').empty()
         itensVenda.forEach((produto, index) => {
             let total = produto.preco * produto.quantidade
@@ -171,6 +183,19 @@
                 </td></tr>
             `)
         })
+        atualizaPrecos()
+      }
+      function atualizaPrecos () {
+        $('#txt-total').html(totalGeral.toFixed(2))
+        let totalComDesconto = 0
+        let totalComAcrescimo = 0
+        if ($('#forma_pagamento').val() == 0) {
+            totalComDesconto = totalGeral - (5 / 100 * totalGeral)
+        } else {
+            totalComAcrescimo = (10 / 100 * totalGeral) + totalGeral
+        }
+        $('#txt-desconto').html(totalComDesconto.toFixed(2))
+        $('#txt-acrescimo').html(totalComAcrescimo.toFixed(2))
       }
   </script>
 @stop

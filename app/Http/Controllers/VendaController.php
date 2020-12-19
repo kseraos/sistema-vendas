@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\VendaDataTable;
 use App\Models\Venda;
 use Illuminate\Http\Request;
+use App\Services\VendaService;
 
 class VendaController extends Controller
 {
@@ -39,7 +40,15 @@ class VendaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $venda = VendaService::store($request);
+
+        if ($venda) {
+            $request->session()->flash('sucesso', 'Venda finalizada com sucesso');
+
+            return response('', 201);
+        }
+
+        return response('Erro ao salvar a venda', 400);
     }
 
     /**
