@@ -8,9 +8,14 @@
 
 @section('content')
 <div class="card card-primary">
-    {!! Form::open(['route' => 'vendas.store', 'id' => 'formVenda']) !!}
+@if (isset($venda))
+                    {!! Form::model($venda, ['route' => ['vendas.update', $venda], 'method' => 'put']) !!}
+                @else
+                {!! Form::open(['route' => 'vendas.store', 'id' => 'formVenda']) !!}
+                @endif
       <div class="card-body">
         <div class="form-group">
+
             {!! Form::label('cliente_id', 'Cliente') !!}
             {!! Form::select('cliente_id', [], null, ['class' => 'form-control']) !!}
             @error('cliente_id')
@@ -28,7 +33,7 @@
 
         <div class="form-group">
             {!! Form::label('forma_pagamento', 'Forma de Pagamento') !!}
-            {!! Form::select('forma_pagamento', $formasPagamento, null, ['class' => 'form-control', 'onchange' => 'atualizaPrecos()']) !!}
+            {!! Form::select('forma_pagamento', $formasPagamento , null, ['class' => 'form-control', 'onchange' => 'atualizaPrecos()']) !!}
             @error('forma_pagamento')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -188,14 +193,11 @@
       function atualizaPrecos () {
         $('#txt-total').html(totalGeral.toFixed(2))
         let totalComDesconto = 0
-        let totalComAcrescimo = 0
         if ($('#forma_pagamento').val() == 0) {
-            totalComDesconto = totalGeral - (5 / 100 * totalGeral)
-        } else {
-            totalComAcrescimo = (10 / 100 * totalGeral) + totalGeral
+            totalComDesconto = totalGeral - (10 / 100 * totalGeral)
         }
         $('#txt-desconto').html(totalComDesconto.toFixed(2))
-        $('#txt-acrescimo').html(totalComAcrescimo.toFixed(2))
+       
       }
   </script>
 @stop

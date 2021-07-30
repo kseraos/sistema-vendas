@@ -44,17 +44,16 @@ class VendaService
             $acrescimo = 0;
 
             if ($request->forma_pagamento == Venda::DINHEIRO) {
-                $desconto = 5 / 100 * $totalGeral;
+                $desconto = 10 / 100 * $totalGeral;
                 $totalGeral -= $desconto;
             } elseif ($request->forma_pagamento == Venda::CARTAO) {
-                $acrescimo = 10 / 100 * $totalGeral;
-                $totalGeral += $acrescimo;
+                $acrescimo = 0;
             }
 
             $venda->update([
                 'total' => $totalGeral,
                 'desconto' => $desconto,
-                'acrescimo' => $acrescimo,
+                // 'acrescimo' => $acrescimo,
             ]);
 
             DB::commit();
@@ -64,5 +63,26 @@ class VendaService
             Log::error($th->getMessage());
             return null;
         }
+    }
+    public static function update($request, $venda)
+    {
+        try{
+            return $venda->update($request);
+        } catch (Throwable $th){
+            Log::error($th->getMessage());
+            return null;
+            
+        }  
+    }
+
+    public static function destroy($venda)
+    {
+        try{
+            return $venda->delete();
+        } catch (Throwable $th){
+            Log::error($th->getMessage());
+            return null;
+            
+        }  
     }
 }

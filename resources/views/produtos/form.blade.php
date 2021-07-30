@@ -14,7 +14,7 @@
   {!!Form::open(['route' => 'produtos.store'])!!}
   @endif
       
- 
+
       <div class="card-body">
         <div class="form-group">
             {!! Form::label('descricao', 'Descrição')!!}

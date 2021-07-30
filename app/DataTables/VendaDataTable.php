@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Venda;
+use Collective\Html\FormFacade;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -21,25 +22,19 @@ class VendaDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'venda.action');
+            ->addColumn('action', function($venda){
+                $rotaExcluir =route('vendas.destroy', $venda);
+                $acoes = link_to_route('vendas.edit', 'Editar', $venda, ['class'=> 'btn btn-primary btn-sm']);
+                $acoes .=FormFacade::button('Excluir', ['class' => 'btn btn-danger btn-sm m1-1', 'onclick' => "excluir('$rotaExcluir')"]);
+                return $acoes;
+            });
     }
 
-    /**
-     * Get query source of dataTable.
-     *
-     * @param \App\Models\Venda $model
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
     public function query(Venda $model)
     {
         return $model->newQuery();
     }
 
-    /**
-     * Optional method if you want to use html builder.
-     *
-     * @return \Yajra\DataTables\Html\Builder
-     */
     public function html()
     {
         return $this->builder()
@@ -66,7 +61,7 @@ class VendaDataTable extends DataTable
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
+                  ->width(120)
                   ->addClass('Ação'),
             Column::make('id'),
             Column::make('cliente_id'),

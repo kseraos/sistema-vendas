@@ -27,12 +27,14 @@ class ProdutoController extends Controller
         $fabricante=ProdutoService::store($request->all());
 
         if($fabricante){
+
             return redirect()->route('produtos.index')
                 ->withSucesso('Salvo com Sucesso');
         }
             return redirect()->route('produtos.index')
-                ->withErro('Ocorreu um erro ao salvar');
+                ->withErro('Ocorreu um erro ao salvar, Verifique se você cadastrou um fornecedor');
     }
+
 
     
     public function show(Produto $produto)
@@ -64,6 +66,7 @@ class ProdutoController extends Controller
         $exclusao = ProdutoService::destroy($produto);
         return response($exclusao, $exclusao ? 200 : 400);
     }
+    
     public function produtosSelect(Request $request)
     {
         return ProdutoService::produtoSelect($request->all());

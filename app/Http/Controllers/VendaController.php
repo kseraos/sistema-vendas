@@ -59,40 +59,38 @@ class VendaController extends Controller
      */
     public function show(Venda $venda)
     {
-        //
+        return response($venda, 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Venda  $venda
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Venda $venda)
     {
-        //
+        return view('vendas.form', compact('venda'), [
+            'formasPagamento' => Venda::FORMAS_PAGAMENTO
+        ]);
+        
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Venda  $venda
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Venda $venda)
     {
-        //
+        {
+            $venda = VendaService::update($request->all(), $venda);
+            
+
+            if($venda){
+                return redirect()->route('vendas.index')
+                    ->withSucesso('Atualizado com Sucesso');
+            }
+                return redirect()->route('vendas.edit', $venda)
+                    ->withErro('Ocorreu um erro ao atualizar');
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Venda  $venda
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Venda $venda)
     {
-        //
+        $exclusao = VendaService::destroy($venda);
+        return response($exclusao, $exclusao ? 200 : 400);
     }
+
+    
 }
