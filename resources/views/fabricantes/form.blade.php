@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Fabricantes')
+@section('title', 'Fornecedor')
 
 @section('content_header')
-    <h1>Fabricantes</h1>
+    <h1>Fornecedor</h1>
 @stop
 
 @section('content')
@@ -17,7 +17,7 @@
  
       <div class="card-body">
         <div class="form-group">
-            {!! Form::label('nome', 'Nome')!!}
+            {!! Form::label('nome', 'Nome do Fornecedor')!!}
             {!! Form::text('nome', null, ['class' => 'form-control']) !!}
             @error('nome')
         <span class="text-danger">{{ $message }}</span>
@@ -27,6 +27,13 @@
             {!! Form::label('site', 'Site')!!}
             {!! Form::text('site', null, ['class' => 'form-control']) !!}
             @error('site')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
+        <div class="form-group">
+            {!! Form::label('data_do_pedido', 'Data do Pedido')!!}
+            {!! Form::date('data_do_pedido', null, ['class' => 'form-control']) !!}
+            @error('data_do_pedido')
             <span class="text-danger">{{ $message }}</span>
             @enderror
         </div>

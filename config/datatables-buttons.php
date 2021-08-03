@@ -46,7 +46,7 @@ return [
         'options'     => [
             'no-outline'    => true,
             'margin-left'   => '0',
-            'margin-right'  => '0',
+            'margin-right'  => '10',
             'margin-top'    => '10mm',
             'margin-bottom' => '10mm',
         ],

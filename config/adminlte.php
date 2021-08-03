@@ -237,14 +237,16 @@ return [
             'icon' => 'fas fa-home'
         ],
         [
-            'text' => 'Fabricantes',
+            'text' => ' Pedidos',
             'url' => 'fabricantes',
-            'icon' => 'fas fa-industry'
+            'icon' => 'fas fa-shopping-cart'
+        
         ],
         [
-            'text' => 'Produtos',
+            'text' => 'Peças',
             'url' => 'produtos',
-            'icon' => 'fas fa-boxes'
+            'icon' => 'fas fa-hand-holding-heart'
+           
         ],
         [
             'text' => 'Clientes',
@@ -254,7 +256,8 @@ return [
         [
             'text' => 'Vendas',
             'url' => 'vendas',
-            'icon' => 'fas fa-shopping-cart'
+            'icon' => 'fas fa-cart-arrow-down'
+            
         ],
         [
             'text' => 'Usuários',

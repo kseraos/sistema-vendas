@@ -56,11 +56,8 @@ class FabricanteDataTable extends DataTable
                     ->dom('Bfrtip')
                     ->orderBy(1)
                     ->buttons(
-                        Button::make('create'),
-                        Button::make('export'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
+                        Button::make('create')->text('Cadastrar Novo'),
+                        Button::make('export')->text('Exportar')
                     );
     }
 
@@ -80,6 +77,7 @@ class FabricanteDataTable extends DataTable
             Column::make('id'),
             Column::make('nome'),
             Column::make('site'),
+            Column::make('data_do_pedido')
         ];
     }
 
