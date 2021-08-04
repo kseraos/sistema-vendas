@@ -72,12 +72,13 @@ class FabricanteDataTable extends DataTable
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(120)
-                  ->title ('acoes'),
+                  ->width(111)
+                  ->title('ações'),
             Column::make('id'),
             Column::make('nome'),
             Column::make('site'),
-            Column::make('data_do_pedido')
+            Column::make('data_do_pedido'),
+            Column::make('valor_pedido')
         ];
     }
 

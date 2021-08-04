@@ -9,9 +9,11 @@ class Produto extends Model
     protected $fillable = [
 
         'descricao',
-        'estoque',
         'preco',
-        'fabricante_id'
+        'fabricante_id',
+        'P',
+        'M',
+        'G'
 
 
     ];

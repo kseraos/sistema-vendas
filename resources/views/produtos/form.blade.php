@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-<div class="card card-primary">
+<div class="card card-primary col-md-13">
   @if (isset($produto))
     {!! Form::model($produto, ['route' => ['produtos.update', $produto], 'method' => 'put']) !!}
   @else 
@@ -16,26 +16,48 @@
       
 
       <div class="card-body">
-        <div class="form-group">
-            {!! Form::label('descricao', 'Descrição')!!}
-            {!! Form::text('descricao', null, ['class' => 'form-control']) !!}
-            @error('descricao')
-                <span class="text-danger">{{ $message }}</span>
-            @enderror
-        </div>
-
         <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    {!! Form::label('estoque', 'Estoque')!!}
-                    {!! Form::text('estoque', null, ['class' => 'form-control']) !!}
-                    @error('estoque')
+            <div class="col-md-8">
+                 <div class="form-group">
+                    {!! Form::label('descricao', 'Descrição')!!}
+                    {!! Form::text('descricao', null, ['class' => 'form-control']) !!}
+                    @error('descricao')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-
             </div>
-            <div class="col-md-6">
+        <div class="col-md-1">
+            <div class="form-group">
+                {!! Form::label('P', 'P')!!} 
+                {!! Form::number('P', null, ['class' => 'form-control']) !!}
+                @error('P')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
+        </div>
+
+            <div class="col-md-1">
+                <div class="form-group">
+                    {!! Form::label('M', 'M')!!} 
+                    {!! Form::number('M', null, ['class' => 'form-control']) !!}
+                    @error('M')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    {!! Form::label('G', 'G')!!} 
+                    {!! Form::number('G', null, ['class' => 'form-control']) !!}
+                    @error('G')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="col-md-4">
                 <div class="form-group">
                     {!! Form::label('preco', 'Preço')!!}
                     {!! Form::text('preco', null, ['class' => 'form-control']) !!}
@@ -43,22 +65,18 @@
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-
             </div>
-        </div>
-
-        <div class="form-group">
-            {!! Form::label('fabricante_id', 'Fabricante')!!}
-            {!! Form::select('fabricante_id', [],  null, ['class' => 'form-control']) !!}
-            @error('fabricante_id')
-                <span class="text-danger">{{ $message }}</span>
-            @enderror
-        </div>
-
-
-
+        
+            <div class="col-md-3">
+                <div class="form-group">
+                    {!! Form::label('fabricante_id', 'Fabricante')!!}
+                    {!! Form::select('fabricante_id', [],  null, ['class' => 'form-control']) !!}
+                    @error('fabricante_id')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
       </div>
-
       <div class="card-footer">
         {!!Form::submit('Salvar', ['class' =>'btn btn-primary'])!!}
       </div>

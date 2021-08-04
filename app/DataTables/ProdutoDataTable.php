@@ -42,8 +42,10 @@ class ProdutoDataTable extends DataTable
                 ->select(
                     'produtos.id',
                     'produtos.descricao',
-                    'produtos.estoque',
                     'produtos.preco',
+                    'produtos.P',
+                    'produtos.M',
+                    'produtos.G',
                     'fabricantes.nome as fabricante'
                 );
     }
@@ -78,13 +80,13 @@ class ProdutoDataTable extends DataTable
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(120)
-                  ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('descricao'),
-            Column::make('estoque'),
-            Column::make('preco'),
-            Column::make('fabricante')->name('fabricantes.nome')
+                  ->width(111)
+                  ->addClass('text-center')
+                  ->title('Ação'),
+            Column::make('id')->title('Id'),
+            Column::make('descricao')->title('Descrição'),
+            Column::make('preco')->title('Preço'),
+            Column::make('fabricante')->name('fabricantes.nome')->title('Fornecedor'),
         ];
     }
 
